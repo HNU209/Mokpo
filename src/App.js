@@ -23,8 +23,8 @@ const App = () => {
 
   useEffect(() => {
     const getFetchData = async () => {
-      const busTrip = await getData("electric_car_trip");
-      const electricCarTrip = await getData("bus_trip");
+      const busTrip = await getData("bus_trip");
+      const electricCarTrip = await getData("electric_car_trip");
       const tourLoc = await getData("tour_loc");
       const parkingLoc = await getData("parking_loc");
 
