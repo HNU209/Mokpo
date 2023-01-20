@@ -37,7 +37,7 @@ const DEFAULT_THEME = {
 };
 
 const INITIAL_VIEW_STATE = {
-    longitude: 126.45,
+    longitude: 126.4,
     latitude: 34.8,
     zoom: 10,
     minZoom: 12,
@@ -74,6 +74,7 @@ const Trip = props => {
     const electricCarTrip = props.electricCarTrip;
     const tourLoc = props.tourLoc;
     const parkingLoc = props.parkingLoc;
+    const electricCarParkingLotLoc = props.electricCarParkingLotLoc;
 
     const [animationFrame, setAnimationFrame] = useState('');
 
@@ -95,7 +96,7 @@ const Trip = props => {
             data: busTrip,
             getPath: d => d.trip,
             getTimestamps: d => d.timestamp,
-            getColor: d => getDestColor(d),
+            getColor: d => d.type === 'foot' ? [255, 255, 255] : [255, 0, 0],
             opacity: 1,
             widthMinPixels: 5,
             trailLength: 1,
@@ -108,7 +109,7 @@ const Trip = props => {
             data: electricCarTrip,
             getPath: d => d.trip,
             getTimestamps: d => d.timestamp,
-            getColor: d => getDestColor(d),
+            getColor: d => d.type === 'foot' ? [255, 255, 255] : [0, 0, 255],
             opacity: 1,
             widthMinPixels: 5,
             trailLength: 1,
@@ -128,11 +129,11 @@ const Trip = props => {
             getIcon: d => 'marker',
             getPosition: d => d.point,
             getSize: d => 5,
-            getColor: d => [255, 0, 0]
+            getColor: d => [255, 255, 0]
         }),
         new IconLayer({
-            id: 'parking-lot-point',
-            data: parkingLoc,
+            id: 'electric-car-parking-lot-loc',
+            data: electricCarParkingLotLoc,
             pickable: false,
             iconAtlas: 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/icon-atlas.png',
             iconMapping: ICON_MAPPING,
@@ -142,7 +143,7 @@ const Trip = props => {
             getIcon: d => 'marker',
             getPosition: d => d.point,
             getSize: d => 5,
-            getColor: d => [255, 255, 0]
+            getColor: d => [255, 0, 0]
         }),
     ];
 

@@ -18,7 +18,8 @@ const App = () => {
   const [busTrip, setBusTrip] = useState([]);
   const [electricCarTrip, setElectricCarTrip] = useState([]);
   const [tourLoc, setTourLoc] = useState([]);
-  const [parkingLoc, setParkingLoc] = useState([]);
+  const [parkingLoc, setParkingLoc] = useState([]); // 관광지 주차장
+  const [electricCarParkingLotLoc, setElectricCarParkingLotLoc] = useState([]); // 초소형 전기차 주차장
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -27,12 +28,14 @@ const App = () => {
       const electricCarTrip = await getData("electric_car_trip");
       const tourLoc = await getData("tour_loc");
       const parkingLoc = await getData("parking_loc");
+      const electricCarParkingLotLoc = await getData("electric_parking_loc");
 
       if (busTrip && electricCarTrip && tourLoc && parkingLoc) {
         setBusTrip((prev) => busTrip);
         setElectricCarTrip((prev) => electricCarTrip);
         setTourLoc((prev) => tourLoc);
         setParkingLoc((prev) => parkingLoc);
+        setElectricCarParkingLotLoc((prev) => electricCarParkingLotLoc);
         setLoaded(true);
       }
     };
@@ -57,6 +60,7 @@ const App = () => {
             electricCarTrip={electricCarTrip}
             tourLoc={tourLoc}
             parkingLoc={parkingLoc}
+            electricCarParkingLotLoc={electricCarParkingLotLoc}
             minTime={minTime}
             maxTime={maxTime}
             time={time}
