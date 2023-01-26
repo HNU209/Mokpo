@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/Mokpo/static/css/main.4da807a4.css",
-    "main.js": "/Mokpo/static/js/main.64a83f95.js",
+    "main.js": "/Mokpo/static/js/main.0a4bbb3d.js",
     "static/js/483.2fc2db4b.chunk.js": "/Mokpo/static/js/483.2fc2db4b.chunk.js",
     "static/js/787.ef37220f.chunk.js": "/Mokpo/static/js/787.ef37220f.chunk.js",
     "service-worker.js": "/Mokpo/service-worker.js",
     "index.html": "/Mokpo/index.html",
     "main.4da807a4.css.map": "/Mokpo/static/css/main.4da807a4.css.map",
-    "main.64a83f95.js.map": "/Mokpo/static/js/main.64a83f95.js.map",
+    "main.0a4bbb3d.js.map": "/Mokpo/static/js/main.0a4bbb3d.js.map",
     "483.2fc2db4b.chunk.js.map": "/Mokpo/static/js/483.2fc2db4b.chunk.js.map",
     "787.ef37220f.chunk.js.map": "/Mokpo/static/js/787.ef37220f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.4da807a4.css",
-    "static/js/main.64a83f95.js"
+    "static/js/main.0a4bbb3d.js"
   ]
 }
