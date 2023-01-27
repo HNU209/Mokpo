@@ -53,17 +53,6 @@ const ICON_MAPPING = {
     marker: {x: 0, y: 0, width: 128, height: 128, mask: true}
 };
 
-const getDestColor = data => {
-    console.log(data);
-    if (data.type === '1') {
-        return [255, 0, 0];
-    } else if (data.type === '2') {
-        return [0, 255, 0];
-    } else if (data.type === '3') {
-        return [0, 0, 255];
-    }
-};
-
 const Trip = props => {
     const minTime = props.minTime;
     const maxTime = props.maxTime;
