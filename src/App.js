@@ -1,75 +1,57 @@
 import "mapbox-gl/dist/mapbox-gl.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import Trip from "./components/Trip";
+
 import Splash from "./components/Splash";
+import Trip from "./components/Trip";
 import "./css/app.css";
 
-const getData = (name) => {
-  const res = axios.get(`https://raw.githubusercontent.com/HNU209/Mokpo/main/src/data/${name}.json`);
+const fetchData = (name) => {
+  const res = axios.get(
+    `https://raw.githubusercontent.com/HNU209/Mokpo/main/src/data/${name}.json`
+  );
   const data = res.then((r) => r.data);
   return data;
 };
 
 const App = () => {
-  const minTime = 480;
-  const maxTime = 660;
-  const [time, setTime] = useState(minTime);
-  const [busTrip, setBusTrip] = useState([]);
   const [electricCarTrip, setElectricCarTrip] = useState([]);
+  const [busTrip, setBusTrip] = useState([]);
   const [tourLoc, setTourLoc] = useState([]);
-  const [parkingLoc, setParkingLoc] = useState([]); // 관광지 주차장
   const [electricCarParkingLotLoc, setElectricCarParkingLotLoc] = useState([]); // 초소형 전기차 주차장
-  const [loaded, setLoaded] = useState(false);
+  const [isloaded, setIsLoaded] = useState(false);
+
+  const getData = useCallback(async () => {
+    const electricCarTrip = await fetchData("electric_car_trip");
+    const busTrip = await fetchData("bus_trip");
+    const tourLoc = await fetchData("tour_loc");
+    const electricCarParkingLotLoc = await fetchData("electric_parking_loc");
+
+    setElectricCarTrip((prev) => electricCarTrip);
+    setBusTrip((prev) => busTrip);
+    setTourLoc((prev) => tourLoc);
+    setElectricCarParkingLotLoc((prev) => electricCarParkingLotLoc);
+    setIsLoaded(true);
+  }, []);
 
   useEffect(() => {
-    const getFetchData = async () => {
-      const busTrip = await getData("bus_trip");
-      const electricCarTrip = await getData("electric_car_trip");
-      const tourLoc = await getData("tour_loc");
-      const parkingLoc = await getData("parking_loc");
-      const electricCarParkingLotLoc = await getData("electric_parking_loc");
-
-      if (busTrip && electricCarTrip && tourLoc && parkingLoc) {
-        setBusTrip((prev) => busTrip);
-        setElectricCarTrip((prev) => electricCarTrip);
-        setTourLoc((prev) => tourLoc);
-        setParkingLoc((prev) => parkingLoc);
-        setElectricCarParkingLotLoc((prev) => electricCarParkingLotLoc);
-        setLoaded(true);
-      }
-    };
-
-    getFetchData();
-  }, []);
+    getData();
+  }, [getData]);
 
   return (
     <div className="container">
-      {loaded ? 
+      {!isloaded && <Splash />}
+      {isloaded && (
         <>
+          <Trip name={"버스"} busTrip={busTrip} tourLoc={tourLoc}></Trip>
           <Trip
-            busTrip={busTrip}
-            tourLoc={tourLoc}
-            parkingLoc={parkingLoc}
-            minTime={minTime}
-            maxTime={maxTime}
-            time={time}
-            setTime={setTime}
-          ></Trip>
-          <Trip
+            name={"초소형 전기차"}
             electricCarTrip={electricCarTrip}
             tourLoc={tourLoc}
-            parkingLoc={parkingLoc}
             electricCarParkingLotLoc={electricCarParkingLotLoc}
-            minTime={minTime}
-            maxTime={maxTime}
-            time={time}
-            setTime={setTime}
           ></Trip>
         </>
-      :
-      <Splash></Splash>
-      }
+      )}
     </div>
   );
 };
