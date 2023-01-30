@@ -147,7 +147,7 @@ const Trip = (props) => {
 
   const SliderChange = (value) => {
     const time = value.target.value;
-    props.setTime(time);
+    setTime(time);
   };
 
   const [hour, minute] = returnAnimationDisplayTime(time);
